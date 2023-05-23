@@ -7,6 +7,7 @@ training purposes
 Web application for mastering bibliocraphical references in bibtex-format
 <br/>
 
+
 ## Documentation
 
 
