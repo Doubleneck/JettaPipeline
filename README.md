@@ -11,6 +11,7 @@ Web application for mastering bibliocraphical references in bibtex-format
 ## Documentation
 
 
+- [It's running in fly.io here](https://jettapipeline.fly.dev/)
 - [Instructions](https://github.com/Doubleneck/JettaPipeline/blob/master/documentation/instructions.md)
 
 
