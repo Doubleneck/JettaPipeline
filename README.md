@@ -8,16 +8,10 @@ Web application for mastering bibliocraphical references in bibtex-format
 
 ## Documentation
 
-- [Product backlog](https://helsinkifi-my.sharepoint.com/:x:/r/personal/tsharkon_ad_helsinki_fi/_layouts/15/Doc.aspx?sourcedoc=%7B990EAC30-58E9-4205-BA24-63F613E3C18C%7D&file=Jetta_ProductBacklog.xlsx&action=default&mobileredirect=true)
 
-- [Definition of Done](https://github.com/Doubleneck/Jetta/blob/master/documentation/definition_of_done.md)
+- [Instructions](https://github.com/Doubleneck/JettaPipeline/blob/master/documentation/instructions.md)
 
-- [License](https://github.com/Doubleneck/Jetta/blob/master/documentation/LICENSE.txt)
 
-- [Instructions](https://github.com/Doubleneck/Jetta/blob/master/documentation/instructions.md)
-
-- [Final report (in Finnish)](https://github.com/Doubleneck/Jetta/blob/master/documentation/final_report.md)
-<br/>
 
 ## Installation
 
@@ -31,9 +25,9 @@ In order to run this software
 
 1. Clone this software in your terminal with command 
 ```bash
-git clone git@github.com:Doubleneck/Jetta.git
+git clone git@github.com:Doubleneck/JettaPipeline.git
 ```
-or download the [latest release](https://github.com/Doubleneck/Jetta/releases/tag/v.2.0.0)
+
 <br/>
 <br/>
 
