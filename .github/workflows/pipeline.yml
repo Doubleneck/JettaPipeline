@@ -1,0 +1,62 @@
+name: Deployment pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request: 
+    branches: [main] 
+    types: [opened, synchronize]
+    
+jobs:
+  pre_deploy_pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@master
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+      - name: Install dependencies
+        run: poetry install
+      - name: Run tests
+        run: poetry run coverage run --branch -m pytest
+      - name: Coverage report
+        run: poetry run coverage xml
+      - name: Coverage report to Codecov
+        run: bash <(curl -s https://codecov.io/bash)
+      - name: Lint
+        run: poetry run pylint --fail-under 9.5 src
+      - name: Run robot tests
+        run: bash ./run_robot_tests.sh
+
+
+  deploy:
+    needs: [pre_deploy_pipeline]
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          
+  tag_release:
+    needs: [deploy]
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
+    steps:   
+      - uses: actions/checkout@v3
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.66.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch            
