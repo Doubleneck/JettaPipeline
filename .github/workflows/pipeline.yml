@@ -36,7 +36,14 @@ jobs:
         run: poetry run pylint --fail-under 9.5 src
       - name: Run robot tests
         run: bash ./run_robot_tests.sh
-
+      - name: Pre check failure
+        if: failure()
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: error
+          text: Build failed!
+          details: "Build failed with commit ${{ github.sha }} by ${{ github.actor }}"
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}      
 
   deploy:
     needs: [pre_deploy_pipeline]
@@ -49,6 +56,15 @@ jobs:
       - run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          
+      - name: Deploy Success
+        if: success() 
+        uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          text: A new version of cicdbibtex available!
+          details: New commit ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].committer.username }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}     
           
   tag_release:
     needs: [deploy]
