@@ -1,6 +1,6 @@
 # fly.toml file generated for jettapipeline on 2023-05-23T17:13:42+03:00
 
-app = "jettapipeline"
+app = "cicdbibtex"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
