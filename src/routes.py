@@ -15,6 +15,7 @@ def is_signed_in():
         return False
     return True
 
+
 class CredentialsError(Exception):
     pass
 
@@ -113,7 +114,7 @@ def create_new_reference():
         flash("New reference created successfully!")
     except ValueError as error:
         flash(str(error))
-    
+
     return redirect(url_for("create_new_reference"))
 
 
@@ -124,6 +125,7 @@ def download_bibtex():
 
     bib_string = the_note_service.get_notes_as_bib(session["user_id"])
     return send_string_as_file(bib_string, "references.bib")
+
 
 @app.route("/ping", methods=["GET"])
 def ping():

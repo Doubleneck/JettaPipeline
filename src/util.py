@@ -2,12 +2,13 @@ import re
 from io import BytesIO
 from flask import send_file
 
+
 def _validate_username(username):
     """Check username is valid and raise exception if username is not valid
-    
-    Args: 
+
+    Args:
         username (string)
-        
+
     Returns:
         None: If username is valid
     """
@@ -27,10 +28,10 @@ def _validate_username(username):
 
 def _validate_password(password):
     """Check password is valid and raise exception if username is not valid
-    
-    Args: 
+
+    Args:
         password (string)
-        
+
     Returns:
         None: If username is valid
     """
@@ -52,7 +53,7 @@ def _validate_password(password):
     return None
 
 
-def validate_credentials(username, password, repeated_password = None):
+def validate_credentials(username, password, repeated_password=None):
     """Checks if the username and password should be
     considered valid.
 
@@ -73,6 +74,7 @@ def validate_credentials(username, password, repeated_password = None):
     _validate_password(password)
     return True
 
+
 def send_string_as_file(contents, filename):
     """Sends the string as a file to the user, showing up as a download
     for the user.
@@ -80,7 +82,7 @@ def send_string_as_file(contents, filename):
     Args:
         contents (str): the file contents as a string
         filename (str): the filename for the download
-    
+
     Returns:
         A response object to return from a route function.
     """
@@ -91,7 +93,7 @@ def send_string_as_file(contents, filename):
 
     return send_file(
         buffer,
-        as_attachment=True, # download, don't open in browser
+        as_attachment=True,  # download, don't open in browser
         download_name=filename,
         mimetype="text/plain"
     )

@@ -1,9 +1,10 @@
 import sqlite3
 
+
 class Database:
     def __init__(self, path="data.db"):
         """Construction
-        
+
         Args:
             path: database file
         """
@@ -13,15 +14,17 @@ class Database:
 
     def connect(self):
         """Try to connect into database, and if fail, raise exception. Also uses create_table method
-        
+
         Returns:
             self.connection: connection to database
         """
 
         try:
-            self.connection = sqlite3.connect(self.db_path, check_same_thread=False)
+            self.connection = sqlite3.connect(
+                self.db_path, check_same_thread=False)
         except Exception:
-            raise ConnectionError(f"Connection to database ({self.db_path}) failed")
+            raise ConnectionError(
+                f"Connection to database ({self.db_path}) failed")
         self.connection.row_factory = sqlite3.Row
         self.connection.isolation_level = None
         self.create_tables()

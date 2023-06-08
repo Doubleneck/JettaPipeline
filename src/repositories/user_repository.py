@@ -3,7 +3,7 @@ from database import the_database
 
 
 class UserRepository:
-    def __init__(self, connection = the_database.connection):
+    def __init__(self, connection=the_database.connection):
         self.connection = connection
 
     def search_user(self, username):
@@ -22,7 +22,7 @@ class UserRepository:
         values = {"username": username}
         sql = """SELECT user_id FROM users
         WHERE username=:username"""
-        
+
         result = cursor.execute(sql, values).fetchone()
         if result:
             return result[0]
